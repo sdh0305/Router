@@ -22,5 +22,5 @@
   },
   "include": [
     "src"
-, "styles/Styled.ts"  ]
+, "styles/Styled.ts", "components/signUp.tsx", "components/signUp2.tsx", "components/user.tsx", "components/LoginPage.tsx", "components/userlist.tsx"  ]
 }

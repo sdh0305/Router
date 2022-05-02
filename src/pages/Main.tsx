@@ -1,6 +1,7 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { ButtonWrap, Button, Wrapper, MainHead, UpperSelect, SelectUpper, LoginData, Table, TableIndex, } from "../styles/Styled"
+import { ButtonWrap, Button, Wrapper, MainHead, UpperSelect, SelectUpper, LoginData, Table, TableIndex, BtnLabel, Btn, BtnWrapper, } from "../styles/Styled"
 
 const SELFKIT_LIST = [
     { label: '코로나19', value: 'COVID-19' },
@@ -8,22 +9,72 @@ const SELFKIT_LIST = [
     { label: '홍역', value: 'Measles' },
 ]
 
+interface UserProps {
+birthday: string;
+device_id: string;
+hospital_id: number;
+kit_manage_id: number;
+phone_number: string;
+reg_dt: string;
+result: string;
+sex: string;
+type: string;
+update_dt: null
+user_id: string;
+username: string;
+}
+
 const Main = () => {
+    const [user, setUser] = useState<UserProps[]>([]);
+    
+
+    useEffect(() => {
+        axios.post('http://210.109.61.255:8000/result/list/', {
+            hospital_id: 1
+
+        })
+            .then(response => {
+                const { data } = response.data
+                setUser(data)
+            })
+            .catch(error => {
+                console.log('User Error');
+            })
+    }, []);
+
+    const changeHandler = (e: any) => {
+        const {checked, name} = e.target;
+        const result = checked ? '양성' : '음성';
+
+        const test = user.filter((res, index) => index == name ? res.result = result : res);
+
+        const testArray = [];
+
+        for(var i = 0; i < user.length; i++) {
+            if (user[i].result == '음성') console.log(false);
+        }
+
+        setUser(test);
+
+        
+    }
+
+
+
     return (
         <Wrapper>
             <MainHead flex>
                 <div></div>
-                <p>
-                    <img src="/img/main-icon.png" alt="메인 아이콘" width={'40px'} height={'40px'} />
-                    <h1>자가 검사 키트 등록 현황</h1>
-                </p>
+                    <div>
+                        <img src="/img/main-icon.png" alt="메인 아이콘" width={'40px'} height={'40px'} />
+                        <h1>자가 검사 키트 등록 현황</h1>
+                    </div>
                 <UpperSelect flex>
                     <div>진단 키트</div>
                     <SelectUpper>
                         {SELFKIT_LIST.map(({ label, value }) => (
                             <option value={value}>{label}</option>
                         ))}
-
                     </SelectUpper>
                 </UpperSelect>
             </MainHead>
@@ -51,176 +102,31 @@ const Main = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>김나라</td>
-                        <td>
-                            <div>
-                                <span className='span1'>음성</span>
-                                <input type={'checkbox'} id='switch' />
-                                <label htmlFor='switch' className="switch_label">
-                                    <span className="onf_btn"></span>
-                                </label>
-                                <span className='span1'>양성</span>
-                            </div>
-                        </td>
-                        <td>010.1234.5678</td>
-                        <td>010.1234.5678</td>
-                        <td>010.1234.5678</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>홍나라</td>
-                        <td>
-                            <div>
-                                <span className='span1'>음성</span>
-                                <input type={'checkbox'} id='switch' />
-                                <label htmlFor='switch' className="switch_label">
-                                    <span className="onf_btn"></span>
-                                </label>
-                                <span className='span1'>양성</span>
-                            </div>
-                        </td>
-                        <td>010.1234.5678</td>
-                        <td>010.1234.5678</td>
-                        <td>010.1234.5678</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>임나라</td>
-                        <td>
-                            <div>
-                                <span className='span1'>음성</span>
-                                <input type={'checkbox'} id='switch' />
-                                <label htmlFor='switch' className="switch_label">
-                                    <span className="onf_btn"></span>
-                                </label>
-                                <span className='span1'>양성</span>
-                            </div>
-                        </td>
-                        <td>010.1234.5678</td>
-                        <td>010.1234.5678</td>
-                        <td>010.1234.5678</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>강나라</td>
-                        <td>
-                            <div>
-                                <span className='span1'>음성</span>
-                                <input type={'checkbox'} id='switch' />
-                                <label htmlFor='switch' className="switch_label">
-                                    <span className="onf_btn"></span>
-                                </label>
-                                <span className='span1'>양성</span>
-                            </div>
-                        </td>
-                        <td>010.1234.5678</td>
-                        <td>010.1234.5678</td>
-                        <td>010.1234.5678</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>양나라</td>
-                        <td>
-                            <div>
-                                <span className='span1'>음성</span>
-                                <input type={'checkbox'} id='switch' />
-                                <label htmlFor='switch' className="switch_label">
-                                    <span className="onf_btn"></span>
-                                </label>
-                                <span className='span1'>양성</span>
-                            </div>
-                        </td>
-                        <td>010.1234.5678</td>
-                        <td>010.1234.5678</td>
-                        <td>010.1234.5678</td>
-                    </tr>
-                    <tr>
-                        <td>6</td>
-                        <td>유나라</td>
-                        <td>
-                            <div>
-                                <span className='span1'>음성</span>
-                                <input type={'checkbox'} id='switch' />
-                                <label htmlFor='switch' className="switch_label">
-                                    <span className="onf_btn"></span>
-                                </label>
-                                <span className='span1'>양성</span>
-                            </div>
-                        </td>
-                        <td>010.1234.5678</td>
-                        <td>010.1234.5678</td>
-                        <td>010.1234.5678</td>
-                    </tr>
-                    <tr>
-                        <td>7</td>
-                        <td>한나라</td>
-                        <td>
-                            <div>
-                                <span className='span1'>음성</span>
-                                <input type={'checkbox'} id='switch' />
-                                <label htmlFor='switch' className="switch_label">
-                                    <span className="onf_btn"></span>
-                                </label>
-                                <span className='span1'>양성</span>
-                            </div>
-                        </td>
-                        <td>010.1234.5678</td>
-                        <td>010.1234.5678</td>
-                        <td>010.1234.5678</td>
-                    </tr>
-                    <tr>
-                        <td>8</td>
-                        <td>이나라</td>
-                        <td>
-                            <div>
-                                <span className='span1'>음성</span>
-                                <input type={'checkbox'} id='switch' />
-                                <label htmlFor='switch' className="switch_label">
-                                    <span className="onf_btn"></span>
-                                </label>
-                                <span className='span1'>양성</span>
-                            </div>
-                        </td>
-                        <td>010.1234.5678</td>
-                        <td>010.1234.5678</td>
-                        <td>010.1234.5678</td>
-                    </tr>
-                    <tr>
-                        <td>9</td>
-                        <td>권나라</td>
-                        <td>
-                            <div>
-                                <span className='span1'>음성</span>
-                                <input type={'checkbox'} id='switch' />
-                                <label htmlFor='switch' className="switch_label">
-                                    <span className="onf_btn"></span>
-                                </label>
-                                <span className='span1'>양성</span>
-                            </div>
-                        </td>
-                        <td>010.1234.5678</td>
-                        <td>010.1234.5678</td>
-                        <td>010.1234.5678</td>
-                    </tr>
-                    <tr>
-                        <td>10</td>
-                        <td>장나라</td>
-                        <td>
-                            <div>
-                                <span className='span1'>음성</span>
-                                <input type={'checkbox'} id='switch' />
-                                <label htmlFor='switch' className="switch_label">
-                                    <span className="onf_btn"></span>
-                                </label>
-                                <span className='span1'>양성</span>
-                            </div>
-                        </td>
-                        <td>010.1234.5678</td>
-                        <td>010.1234.5678</td>
-                        <td>010.1234.5678</td>
-                    </tr>
+                    {user.map((res: { username: string; result: any; phone_number: any }, index: any, data) => {
+                        console.log("testData", data);
+                        return (
+                            <tr>
+                                <td>{index + 1}</td>
+                                <td>{res.username}</td>
+                                <BtnWrapper>
+                                        <span>음성</span>   
+                                        <Btn 
+                                            id={index}
+                                            name={index}
+                                            type={'checkbox'} 
+                                            checked={res.result == '양성' ? true: false} 
+                                            onChange={(event) => changeHandler(event)}
+                                        />
+                                        <BtnLabel htmlFor={index} />
+                                        <span>양성</span>
+                                </BtnWrapper>
+                                <td>{res.phone_number}</td>
+                                <td>{res.phone_number}</td>
+                                <td>{res.phone_number}</td>
+                            </tr>
+                            
+                    )
+                    })}
                 </tbody>
             </Table>
             <TableIndex flex>

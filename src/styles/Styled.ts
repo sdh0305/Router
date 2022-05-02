@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 interface Props {
     flex?: any;
+    result?: '음성' | '양성';
 }
 
 interface ButtonProps {
@@ -53,14 +54,19 @@ color: white;
 
 export const BoxRight = styled(Box)`
 width: 400px;
-height: 450px;
-padding: 100px 0 50px 100px;
+height: 400px;
+padding: 150px 0 50px 100px;
 border-top-left-radius: 0px;
 border-bottom-left-radius: 0px;
     p{
         margin: 20px 10px 10px 20px;
         color: #999;
         font-weight: 700;
+    }
+
+    input{
+        width: 300px;
+        height: 30px;
     }
 
 `;
@@ -102,7 +108,7 @@ width: auto;
 display: flex;
 
     .LoginBtn{
-        margin: 40px 0 0 30px;
+        margin: 50px 0 0 80px;
     }
 
     .MainBtn{
@@ -112,7 +118,7 @@ display: flex;
 `;
 
 export const Button = styled.button<ButtonProps>`
-width: 250px;
+width: 150px;
 padding: ${props => props.ok && '3px 0 3px 0'};
 border: ${props => props.ok ? 'none' : '2px solid #ff8800'};
 border-radius: 30px;
@@ -121,6 +127,8 @@ font-family: bolder;
 line-height: 50px;
 color: ${props => props.ok ? 'white' : '#ff8800'};
 background-color: ${props => props.ok ? '#ff8800' : 'white'};
+cursor: pointer;
+
 
 
 `;
@@ -135,16 +143,22 @@ border-bottom: 1px solid #979797;
   
     div{
         width: 400px;
+        display: flex;
         text-align: center;
+        align-items: center;
     }
 
     img{
         margin-bottom: -10px;
     }
-
+    
     h1{
+        min-width: 400px;
         display: inline-block;
         color: #ff8800; 
+    }
+    img{
+        display: inline-block;
     }
     
 `;
@@ -163,7 +177,6 @@ color: #979797;
         padding: 5px 13px;
         border-right: 1px solid #979797;
     }
-    
 `;
 
 export const SelectUpper = styled(Select)`
@@ -191,7 +204,7 @@ justify-content: space-between;
         li{
             display: inline-block;
             padding: 0 95px;
-            font-size: 20px;
+            font-size: 19px;
             font-weight: 600;
             color: #979797;
         }
@@ -207,6 +220,7 @@ justify-content: space-between;
 
 export const Table = styled.table`
 width: 90%;
+min-width: 1024px;
 margin: 0 auto;
 line-height: 70px;
 text-align: center;
@@ -230,75 +244,59 @@ box-shadow: 1px 1px 30px -10px #979797;
         tr:nth-child(2n-1){
             background-color: #fbfafa;
         }
-        
-
-        div{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            .span1 {
-                padding: 0 5px;
-                font-size: 16px;
-                color: #979797;
-                font-weight: 400;
-            }
-
-        
-
-            #switch{
-                position: absolute;
-                /* Hidden */
-                appearance: none;
-                -webkit-appearance: none;
-                -moz-appearance: none;
-            }
-            
-            .switch_label{
-                position: relative;
-                width: 70px;
-                height: 35px;
-                display: inline-block;
-                background-color: #fff;
-                border: 1px solid #979797;
-                border-radius: 20px;
-                cursor: pointer;
-                transition: 0.2s;
-            
-                &:hover{
-                    background-color: #efefef;
-                }
-            }
-
-            .onf_btn{
-                position: absolute;
-                top: 5px;
-                left: 5px;
-                width: 25px;
-                height: 25px;
-                display: inline-block;
-                background: #58C950;
-                border-radius: 20px;
-                transition: 0.2s;
-            }
-
-            #switch:checked+.switch_label{
-                background: #c44;
-                border: 1px solid #c44;
-            }
-
-            #switch:checked+.switch_label:hover{
-                background: #e55;
-
-            }
-
-            #switch:checked+.switch_label .onf_btn{
-                left: 40px;
-                background: #58c950;
-                box-shadow: 1px 2px 3px #00000020;
-            }
-        }       
     }
+`;
+
+
+export const BtnWrapper = styled.td`
+position: relative;
+display: flex;
+justify-content: center;
+align-items: center;    
+    span{
+        margin: 0 5px;
+    }
+`;
+
+
+export const BtnLabel = styled.label`
+display: inline-block;
+top: 1px;
+left: 0;
+width: 70px;
+height: 30px;
+background: #979797;
+border-radius: 30px;
+cursor: pointer;
+    &::after{
+        content: '';
+        width: 20px;
+        height: 20px;
+        margin: 5px;
+        display: block;
+            background: #58C950;
+            border-radius: 50%;
+            box-shadow: 1px 3px 3px 1px #00000020;
+            transition: 0.2s; 
+    }
+`;
+
+export const Btn = styled.input`
+position: absolute;
+opacity: 0;
+appearance: none;
+-webkit-appearance: none;
+-moz-appearance: none;
+    
+    &:checked + ${BtnLabel} {
+            background: #c44;
+            &::after {
+                content:'';
+                display: block;
+                margin-left: 45px;
+            }
+        }
+    
 `;
 
 export const TableIndex = styled(Wrapper)`
