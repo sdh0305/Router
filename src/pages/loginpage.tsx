@@ -48,8 +48,8 @@ const LoginPage = (props?: any) => {
                 <BoxRight>
                     <p>ID</p>
                     <input onChange={(event) => getId(event.target.value)} />
-                    <p>Password</p>
-                    <input onChange={(event) => getPwd(event.target.value)} />
+                    {/* <p>Password</p>
+                    <input onChange={(event) => getPwd(event.target.value)} /> */}
                     <ButtonWrap>
                         <Button ok className="LoginBtn" onClick={pushBtn}>로그인</Button>
                     </ButtonWrap>
